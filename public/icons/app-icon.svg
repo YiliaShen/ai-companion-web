@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Mira app icon">
+  <defs>
+    <radialGradient id="bg" cx="28%" cy="18%" r="90%">
+      <stop offset="0" stop-color="#203436"/>
+      <stop offset="1" stop-color="#090f11"/>
+    </radialGradient>
+    <linearGradient id="signal" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f08b70"/>
+      <stop offset="1" stop-color="#df6d52"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="116" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="148" fill="none" stroke="#edf4f1" stroke-opacity=".18" stroke-width="2"/>
+  <circle cx="256" cy="256" r="104" fill="none" stroke="#edf4f1" stroke-opacity=".26" stroke-width="2"/>
+  <path d="M164 284c33-8 52-98 76-98s34 138 61 138 34-86 50-86" fill="none" stroke="url(#signal)" stroke-linecap="round" stroke-width="18"/>
+  <circle cx="351" cy="238" r="11" fill="#f08b70"/>
+</svg>

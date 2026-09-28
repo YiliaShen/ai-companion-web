@@ -1,0 +1,66 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-width: 320px;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(145, 170, 158, 0.11), transparent 28rem),
+    radial-gradient(circle at 88% 92%, rgba(223, 109, 82, 0.09), transparent 30rem),
+    var(--bg-0);
+  color: var(--text-0);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--text-0);
+}
+
+.boot-shell {
+  display: grid;
+  min-height: 100dvh;
+  place-content: center;
+  gap: 0.75rem;
+  padding: 2rem;
+}
+
+.boot-shell h1 {
+  max-width: 12ch;
+  margin: 0;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.boot-kicker {
+  margin: 0;
+  color: var(--accent-strong);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
