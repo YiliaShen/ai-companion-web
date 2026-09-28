@@ -1,0 +1,192 @@
+{
+  "version": 1,
+  "license": {
+    "name": "Unsplash License + Pexels License",
+    "url": "https://www.pexels.com/license/",
+    "additionalUrl": "https://unsplash.com/license/"
+  },
+  "pathConvention": "All paths are relative to the app base URL; prepend import.meta.env.BASE_URL.",
+  "personas": {
+    "shenxu": {
+      "name": "沈叙",
+      "avatar": "assets/personas/shenxu-avatar.jpg",
+      "hero": "assets/personas/shenxu-hero.jpg",
+      "scenes": {
+        "late_night": "assets/scenes/late_night.jpg",
+        "seaside": "assets/scenes/seaside.jpg",
+        "cafe": "assets/scenes/cafe.jpg",
+        "city_walk": "assets/scenes/city_walk.jpg",
+        "celebration": "assets/scenes/celebration.jpg"
+      }
+    },
+    "linche": {
+      "name": "林澈",
+      "avatar": "assets/personas/linche-avatar.jpg",
+      "hero": "assets/personas/linche-hero.jpg",
+      "scenes": {
+        "late_night": "assets/scenes/late_night.jpg",
+        "seaside": "assets/scenes/seaside.jpg",
+        "cafe": "assets/scenes/cafe.jpg",
+        "city_walk": "assets/scenes/city_walk.jpg",
+        "celebration": "assets/scenes/celebration.jpg"
+      }
+    },
+    "jiangye": {
+      "name": "江野",
+      "avatar": "assets/personas/jiangye-avatar.jpg",
+      "hero": "assets/personas/jiangye-hero.jpg",
+      "scenes": {
+        "late_night": "assets/scenes/late_night.jpg",
+        "seaside": "assets/scenes/seaside.jpg",
+        "cafe": "assets/scenes/cafe.jpg",
+        "city_walk": "assets/scenes/city_walk.jpg",
+        "celebration": "assets/scenes/celebration.jpg"
+      }
+    }
+  },
+  "scenes": {
+    "late_night": {
+      "path": "assets/scenes/late_night.jpg",
+      "alt": "霓虹深夜街角"
+    },
+    "seaside": {
+      "path": "assets/scenes/seaside.jpg",
+      "alt": "落日海岸"
+    },
+    "cafe": {
+      "path": "assets/scenes/cafe.jpg",
+      "alt": "温暖咖啡馆"
+    },
+    "city_walk": {
+      "path": "assets/scenes/city_walk.jpg",
+      "alt": "雨后城市漫步"
+    },
+    "celebration": {
+      "path": "assets/scenes/celebration.jpg",
+      "alt": "鲜花庆祝餐桌"
+    }
+  },
+  "assets": {
+    "shenxu_avatar": {
+      "path": "assets/personas/shenxu-avatar.jpg",
+      "alt": "沈叙角色示意人像（Pexels 图库照片）",
+      "sourceUrl": "https://www.pexels.com/photo/1747178/",
+      "downloadUrl": "https://images.pexels.com/photos/1747178/pexels-photo-1747178.jpeg?auto=compress&cs=tinysrgb&w=480&h=480&fit=crop",
+      "license": "Pexels License",
+      "width": 480,
+      "height": 480,
+      "bytes": 26579,
+      "sha256": "6e0d136c0a0cdca0091b65de2efe9fbadad6006b9b626bcf1ac8662be967b52e"
+    },
+    "shenxu_hero": {
+      "path": "assets/personas/shenxu-hero.jpg",
+      "alt": "沈叙角色示意人像（Pexels 图库照片）",
+      "sourceUrl": "https://www.pexels.com/photo/1747178/",
+      "downloadUrl": "https://images.pexels.com/photos/1747178/pexels-photo-1747178.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop",
+      "license": "Pexels License",
+      "width": 900,
+      "height": 1200,
+      "bytes": 73174,
+      "sha256": "89bb13d9f04e1bb9002b51a5aac1f0c1890cb24f401f55be0b0f3a6c3591bfbc"
+    },
+    "linche_avatar": {
+      "path": "assets/personas/linche-avatar.jpg",
+      "alt": "林澈角色示意人像（Pexels 图库照片）",
+      "sourceUrl": "https://www.pexels.com/photo/18285580/",
+      "downloadUrl": "https://images.pexels.com/photos/18285580/pexels-photo-18285580.jpeg?auto=compress&cs=tinysrgb&w=480&h=480&fit=crop",
+      "license": "Pexels License",
+      "width": 480,
+      "height": 480,
+      "bytes": 40117,
+      "sha256": "a9d2d19f282cc9e5713c1beddcf83177ece7acb704110e0bd8aa2a97d5c845c4"
+    },
+    "linche_hero": {
+      "path": "assets/personas/linche-hero.jpg",
+      "alt": "林澈角色示意人像（Pexels 图库照片）",
+      "sourceUrl": "https://www.pexels.com/photo/18285580/",
+      "downloadUrl": "https://images.pexels.com/photos/18285580/pexels-photo-18285580.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop",
+      "license": "Pexels License",
+      "width": 900,
+      "height": 1200,
+      "bytes": 185118,
+      "sha256": "2acd43996000ebbd3ac21e9dff3b3937ed554986072f4c5058e384dc373ac34a"
+    },
+    "jiangye_avatar": {
+      "path": "assets/personas/jiangye-avatar.jpg",
+      "alt": "江野角色示意人像（Pexels 图库照片）",
+      "sourceUrl": "https://www.pexels.com/photo/2379005/",
+      "downloadUrl": "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=480&h=480&fit=crop",
+      "license": "Pexels License",
+      "width": 480,
+      "height": 480,
+      "bytes": 40547,
+      "sha256": "cbe73caa3d9bd2dc3e6318600617148090648db6b6b484b9e43862d300ec05b4"
+    },
+    "jiangye_hero": {
+      "path": "assets/personas/jiangye-hero.jpg",
+      "alt": "江野角色示意人像（Pexels 图库照片）",
+      "sourceUrl": "https://www.pexels.com/photo/2379005/",
+      "downloadUrl": "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop",
+      "license": "Pexels License",
+      "width": 900,
+      "height": 1200,
+      "bytes": 195804,
+      "sha256": "253c13a55a85fa21d123def8c92b59124ba09492c8a028d812e87076c602c1d3"
+    },
+    "late_night": {
+      "path": "assets/scenes/late_night.jpg",
+      "alt": "霓虹深夜街角",
+      "sourceUrl": "https://images.unsplash.com/photo-1519608487953-e999c86e7455",
+      "downloadUrl": "https://images.unsplash.com/photo-1519608487953-e999c86e7455?fm=jpg&fit=crop&crop=entropy&w=1200&h=900&q=80",
+      "license": "Unsplash License",
+      "width": 1200,
+      "height": 900,
+      "bytes": 158749,
+      "sha256": "865cda41c21b304ce5b5a5490664680547aee2841dd071dcdd383a1ef9a01c8c"
+    },
+    "seaside": {
+      "path": "assets/scenes/seaside.jpg",
+      "alt": "落日海岸",
+      "sourceUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+      "downloadUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fm=jpg&fit=crop&crop=entropy&w=1200&h=900&q=80",
+      "license": "Unsplash License",
+      "width": 1200,
+      "height": 900,
+      "bytes": 145145,
+      "sha256": "e6084ddd7c5ae1097520ef68aef1bc6d16b8a9d317fd093ec11c973315374920"
+    },
+    "cafe": {
+      "path": "assets/scenes/cafe.jpg",
+      "alt": "温暖咖啡馆",
+      "sourceUrl": "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb",
+      "downloadUrl": "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?fm=jpg&fit=crop&crop=entropy&w=1200&h=900&q=80",
+      "license": "Unsplash License",
+      "width": 1200,
+      "height": 900,
+      "bytes": 143058,
+      "sha256": "67ca57ec50184c211ce96a93e8f0c625c29902baff32386fe89550553c964dae"
+    },
+    "city_walk": {
+      "path": "assets/scenes/city_walk.jpg",
+      "alt": "雨后城市漫步",
+      "sourceUrl": "https://images.unsplash.com/photo-1519501025264-65ba15a82390",
+      "downloadUrl": "https://images.unsplash.com/photo-1519501025264-65ba15a82390?fm=jpg&fit=crop&crop=entropy&w=1200&h=900&q=80",
+      "license": "Unsplash License",
+      "width": 1200,
+      "height": 900,
+      "bytes": 233366,
+      "sha256": "258a4695828f48a26bc0ebbe83bf93e216ebc08fc5e5cde217f77f3d1519c1ea"
+    },
+    "celebration": {
+      "path": "assets/scenes/celebration.jpg",
+      "alt": "鲜花庆祝餐桌",
+      "sourceUrl": "https://images.unsplash.com/photo-1511795409834-ef04bbd61622",
+      "downloadUrl": "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?fm=jpg&fit=crop&crop=entropy&w=1200&h=900&q=80",
+      "license": "Unsplash License",
+      "width": 1200,
+      "height": 900,
+      "bytes": 159295,
+      "sha256": "77b39bbd2792dd9ac9b44d8e41420c2063f645e95f551f24e54c3faadc43f73b"
+    }
+  }
+}
