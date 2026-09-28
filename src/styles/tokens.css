@@ -24,3 +24,27 @@
   --font-mono: "SFMono-Regular", "Cascadia Mono", "Roboto Mono", monospace;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+:root {
+  --text-2: #91a59e;
+  /* Layer order: surface, navigation, floating panel, dialog (native top layer). */
+  --layer-nav: 10;
+  --layer-panel: 20;
+}
+:root[data-theme="dawn"] {
+  color-scheme: light;
+  --bg-0: #f2f1eb;
+  --bg-1: #eaece5;
+  --bg-2: #e0e5dc;
+  --bg-elevated: #d5ddd2;
+  --line: rgb(33 56 48 / 12%);
+  --line-strong: rgb(33 56 48 / 25%);
+  --text-0: #1d332c;
+  --text-1: #42594e;
+  --text-2: #576e62;
+  --accent: #d96b50;
+  --accent-strong: #eb8165;
+  --accent-soft: rgb(191 82 53 / 12%);
+  --danger: #ae3535;
+  --success: #48765f;
+}

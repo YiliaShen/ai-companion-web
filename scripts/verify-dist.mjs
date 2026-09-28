@@ -46,7 +46,10 @@ export async function verifyAssets(root) {
   const manifest = JSON.parse(await readFile(resolve(root, 'assets/manifest.json'), 'utf8'));
   const credits = await readFile(resolve(root, 'assets/CREDITS.md'), 'utf8');
   assert.equal(manifest.version, 1, 'Unknown asset manifest version');
-  assert.equal(manifest.license.url, 'https://unsplash.com/license');
+  const allowedSource = /^https:\/\/(?:www\.pexels\.com|images\.unsplash\.com)\//;
+  const allowedImageCdn = new Set(['https://images.pexels.com', 'https://images.unsplash.com']);
+  assert.equal(manifest.license.url, 'https://www.pexels.com/license/');
+  assert.equal(manifest.license.additionalUrl, 'https://unsplash.com/license/');
   const assets = Object.values(manifest.assets);
   assert(assets.length >= 11, 'Expected six portrait crops and at least five scene photos');
   const paths = new Set(assets.map((asset) => asset.path));
@@ -71,8 +74,8 @@ export async function verifyAssets(root) {
     assert.equal(bytes.readUInt16BE(0), 0xffd8, `Not a JPEG: ${asset.path}`);
     assert.equal(createHash('sha256').update(bytes).digest('hex'), asset.sha256, `Image hash differs: ${asset.path}`);
     assert(asset.width > 0 && asset.width <= 1600 && asset.height > 0 && asset.height <= 1600, `Invalid image dimensions: ${asset.path}`);
-    assert.equal(new URL(asset.sourceUrl).origin, 'https://images.unsplash.com');
-    assert.equal(new URL(asset.downloadUrl).origin, 'https://images.unsplash.com');
+    assert(allowedSource.test(asset.sourceUrl), `Unexpected source URL: ${asset.sourceUrl}`);
+    assert(allowedImageCdn.has(new URL(asset.downloadUrl).origin), `Unexpected image CDN: ${asset.downloadUrl}`);
     assert(credits.includes(asset.sourceUrl) && credits.includes(asset.downloadUrl), `Missing credit: ${asset.path}`);
   }
   return { manifest, count: assets.length, bytes: assets.reduce((sum, asset) => sum + asset.bytes, 0) };
