@@ -1,0 +1,123 @@
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { readFile, readdir, stat } from 'node:fs/promises';
+import { resolve, sep } from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+
+export const projectRoot = fileURLToPath(new URL('../', import.meta.url));
+const origin = 'http://mira.invalid';
+const personaIds = ['shenxu', 'linche', 'jiangye'];
+const sceneIds = ['late_night', 'seaside', 'cafe', 'city_walk', 'celebration'];
+
+export function normalizeBase(value) {
+  if (!value || value === './') return '/';
+  assert(value.startsWith('/') && !value.startsWith('//'), 'Base must be an absolute pathname or ./');
+  assert(!/[?#\\]/.test(value) && !value.split('/').includes('..'), 'Invalid base pathname');
+  return value.endsWith('/') ? value : `${value}/`;
+}
+
+export function localPath(reference, base, documentPath = base) {
+  const url = new URL(reference, `${origin}${documentPath}`);
+  if (url.origin !== origin) return null;
+  assert(url.pathname.startsWith(base), `Reference escapes deployment base ${base}: ${reference}`);
+  const path = decodeURIComponent(url.pathname.slice(base.length));
+  assert(path && !path.split('/').some((part) => part === '..' || part === '.') && !path.includes('\\'), `Invalid local reference: ${reference}`);
+  return path;
+}
+
+function safeFile(root, path) {
+  assert(typeof path === 'string' && path.length > 0 && !path.startsWith('/'), `Expected base-relative asset path: ${path}`);
+  const file = resolve(root, path);
+  assert(file.startsWith(`${resolve(root)}${sep}`), `Path escapes output directory: ${path}`);
+  return file;
+}
+
+async function walk(root, prefix = '') {
+  const entries = await readdir(resolve(root, prefix), { withFileTypes: true });
+  const nested = await Promise.all(entries.map((entry) => {
+    const path = prefix ? `${prefix}/${entry.name}` : entry.name;
+    assert(!entry.isSymbolicLink(), `Symlinks cannot be uploaded to Pages: ${path}`);
+    return entry.isDirectory() ? walk(root, path) : path;
+  }));
+  return nested.flat();
+}
+
+export async function verifyAssets(root) {
+  const manifest = JSON.parse(await readFile(resolve(root, 'assets/manifest.json'), 'utf8'));
+  const credits = await readFile(resolve(root, 'assets/CREDITS.md'), 'utf8');
+  assert.equal(manifest.version, 1, 'Unknown asset manifest version');
+  assert.equal(manifest.license.url, 'https://unsplash.com/license');
+  const assets = Object.values(manifest.assets);
+  assert(assets.length >= 11, 'Expected six portrait crops and at least five scene photos');
+  const paths = new Set(assets.map((asset) => asset.path));
+  assert.equal(paths.size, assets.length, 'Duplicate asset paths');
+  for (const id of personaIds) {
+    const persona = manifest.personas[id];
+    assert(persona, `Missing persona ${id}`);
+    for (const role of ['avatar', 'hero']) {
+      assert.equal(persona[role], `assets/personas/${id}-${role}.jpg`);
+      assert(paths.has(persona[role]), `Unlisted portrait ${persona[role]}`);
+    }
+    for (const scene of sceneIds) assert.equal(persona.scenes[scene], manifest.scenes[scene].path);
+  }
+  for (const scene of sceneIds) {
+    assert.equal(manifest.scenes[scene].path, `assets/scenes/${scene}.jpg`);
+    assert(paths.has(manifest.scenes[scene].path), `Unlisted scene ${scene}`);
+  }
+  for (const asset of assets) {
+    const bytes = await readFile(safeFile(root, asset.path));
+    assert(bytes.length > 1024 && bytes.length < 500_000, `Unexpected image size: ${asset.path}`);
+    assert.equal(bytes.length, asset.bytes, `Byte count differs: ${asset.path}`);
+    assert.equal(bytes.readUInt16BE(0), 0xffd8, `Not a JPEG: ${asset.path}`);
+    assert.equal(createHash('sha256').update(bytes).digest('hex'), asset.sha256, `Image hash differs: ${asset.path}`);
+    assert(asset.width > 0 && asset.width <= 1600 && asset.height > 0 && asset.height <= 1600, `Invalid image dimensions: ${asset.path}`);
+    assert.equal(new URL(asset.sourceUrl).origin, 'https://images.unsplash.com');
+    assert.equal(new URL(asset.downloadUrl).origin, 'https://images.unsplash.com');
+    assert(credits.includes(asset.sourceUrl) && credits.includes(asset.downloadUrl), `Missing credit: ${asset.path}`);
+  }
+  return { manifest, count: assets.length, bytes: assets.reduce((sum, asset) => sum + asset.bytes, 0) };
+}
+
+export async function verifyDist({ root = resolve(projectRoot, 'dist'), basePath = process.env.VITE_BASE_PATH } = {}) {
+  const html = await readFile(resolve(root, 'index.html'), 'utf8');
+  assert(/<div\b[^>]*\bid=["']root["']/.test(html), 'Missing React mount point');
+  const moduleTag = html.match(/<script\b(?=[^>]*\btype=["']module["'])[^>]*\bsrc=["']([^"']+)["'][^>]*>/);
+  assert(moduleTag, 'Missing production module entry');
+  const entry = new URL(moduleTag[1], origin);
+  assert.equal(entry.origin, origin, 'Production entry must be local');
+  const inferredBase = entry.pathname.slice(0, entry.pathname.lastIndexOf('/assets/') + 1);
+  assert(inferredBase, 'Production entry is not a Vite asset');
+  const base = normalizeBase(basePath ?? inferredBase);
+  const references = [...html.matchAll(/<(?:script|link|img|source)\b[^>]*\b(?:src|href)=["']([^"']+)["'][^>]*>/g)]
+    .map((match) => localPath(match[1], base)).filter(Boolean);
+  assert(!html.includes('/src/'), 'Development source reference in production HTML');
+  for (const path of references) assert((await stat(safeFile(root, path))).isFile(), `Missing HTML reference: ${path}`);
+  const pwaPath = references.find((path) => path.endsWith('.webmanifest'));
+  assert(pwaPath, 'Missing PWA manifest link');
+  const pwa = JSON.parse(await readFile(safeFile(root, pwaPath), 'utf8'));
+  for (const key of ['start_url', 'scope']) {
+    assert.equal(new URL(pwa[key], `${origin}${base}${pwaPath}`).pathname, base, `PWA ${key} must match deployment base`);
+  }
+  for (const icon of pwa.icons) {
+    const path = localPath(icon.src, base, `${base}${pwaPath}`);
+    assert(path && (await stat(safeFile(root, path))).isFile(), `Missing PWA icon: ${icon.src}`);
+  }
+  const sw = await readFile(resolve(root, 'sw.js'), 'utf8');
+  assert(sw.includes('precacheAndRoute'), 'Missing service-worker precache');
+  const assets = await verifyAssets(root);
+  for (const asset of Object.values(assets.manifest.assets)) assert(sw.includes(asset.path), `Photo is not available offline: ${asset.path}`);
+  assert(sw.includes('assets/manifest.json'), 'Asset manifest is not available offline');
+  const files = await walk(root);
+  for (const file of files) assert(!/(^|\/)(?:\.env(?:\.|$)|node_modules\/)/.test(file), `Non-public file in dist: ${file}`);
+  return { root, base, files, references, assetCount: assets.count, assetBytes: assets.bytes };
+}
+
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+  try {
+    const result = await verifyDist();
+    console.log(`Verified dist at ${result.base}: ${result.files.length} files, ${result.assetCount} photos (${result.assetBytes} bytes), valid HTML/PWA references and offline assets.`);
+  } catch (error) {
+    console.error(`Dist verification failed: ${error.message}`);
+    process.exitCode = 1;
+  }
+}

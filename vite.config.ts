@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
       react(),
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['icons/app-icon.svg', 'assets/*.{jpg,jpeg,png,webp}'],
+        includeAssets: ['icons/app-icon.svg', 'assets/manifest.json', 'assets/CREDITS.md'],
         manifest: {
           name: 'Mira · AI 情感陪伴',
           short_name: 'Mira',
