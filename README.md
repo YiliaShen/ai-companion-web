@@ -19,9 +19,9 @@ pnpm check
 
 ## 部署
 
-`main` 分支通过 GitHub Actions 自动发布到 GitHub Pages。当前公开产品定位为本地优先 PWA：对话与记忆默认只保存在浏览器；只有用户主动配置真实模型时，当前上下文才会发送到其指定的服务商。
+`main` 分支保存源码；当前公开站点通过 `gh-pages` 分支发布，避免依赖本地 Token 的 `workflow` scope。当前公开产品定位为本地优先 PWA：对话与记忆默认只保存在浏览器；只有用户主动配置真实模型时，当前上下文才会发送到其指定的服务商。
 
-In **Settings > Pages > Build and deployment > Source**, select **GitHub Actions**. The workflow at `.github/workflows/deploy-pages.yml` builds on pushes to `main`, pull requests targeting `main`, and manual dispatch. Only `main` push/manual runs upload and deploy; pull requests validate without deployment. Initial Pages enablement is a repository-admin action. No PAT or manually configured secret is required.
+Public URL: `https://yiliashen.github.io/ai-companion-web/`. Pages is configured to serve the `gh-pages` branch. The validated GitHub Actions workflow is retained at `docs/deploy/github-actions-pages.yml.example`; if the GitHub CLI account is authorized with the `workflow` scope, it can be moved back to `.github/workflows/deploy-pages.yml` for automatic CI deployment.
 
 The workflow uses Node.js 22, pinned pnpm 12.3.4, and a frozen lockfile. `VITE_BASE_PATH=/ai-companion-web/` targets `https://<owner>.github.io/ai-companion-web/`. If the repository name or custom domain changes, update that base in the workflow; use `/` for root-domain hosting. The local default is `./`.
 
