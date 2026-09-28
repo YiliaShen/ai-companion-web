@@ -70,68 +70,68 @@
     "shenxu_avatar": {
       "path": "assets/personas/shenxu-avatar.jpg",
       "alt": "沈叙角色示意人像（Pexels 图库照片）",
-      "sourceUrl": "https://www.pexels.com/photo/1747178/",
-      "downloadUrl": "https://images.pexels.com/photos/1747178/pexels-photo-1747178.jpeg?auto=compress&cs=tinysrgb&w=480&h=480&fit=crop",
+      "sourceUrl": "https://www.pexels.com/photo/15858822/",
+      "downloadUrl": "https://images.pexels.com/photos/15858822/pexels-photo-15858822.jpeg?auto=compress&cs=tinysrgb&w=480&h=480&fit=crop&crop=faces",
       "license": "Pexels License",
       "width": 480,
       "height": 480,
-      "bytes": 26579,
-      "sha256": "6e0d136c0a0cdca0091b65de2efe9fbadad6006b9b626bcf1ac8662be967b52e"
+      "bytes": 26288,
+      "sha256": "71b92a74f8a6dc67c3f32aff8216a71c21adfc02b85ae64a122f9eb7ad6a0d9a"
     },
     "shenxu_hero": {
       "path": "assets/personas/shenxu-hero.jpg",
       "alt": "沈叙角色示意人像（Pexels 图库照片）",
-      "sourceUrl": "https://www.pexels.com/photo/1747178/",
-      "downloadUrl": "https://images.pexels.com/photos/1747178/pexels-photo-1747178.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop",
+      "sourceUrl": "https://www.pexels.com/photo/15858822/",
+      "downloadUrl": "https://images.pexels.com/photos/15858822/pexels-photo-15858822.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop&crop=faces",
       "license": "Pexels License",
       "width": 900,
       "height": 1200,
-      "bytes": 73174,
-      "sha256": "89bb13d9f04e1bb9002b51a5aac1f0c1890cb24f401f55be0b0f3a6c3591bfbc"
+      "bytes": 90927,
+      "sha256": "2af6b9083d17f4b361091fc20d6aca8e68ba6ccf40d1799c30dad3d5231753a7"
     },
     "linche_avatar": {
       "path": "assets/personas/linche-avatar.jpg",
       "alt": "林澈角色示意人像（Pexels 图库照片）",
-      "sourceUrl": "https://www.pexels.com/photo/18285580/",
-      "downloadUrl": "https://images.pexels.com/photos/18285580/pexels-photo-18285580.jpeg?auto=compress&cs=tinysrgb&w=480&h=480&fit=crop",
+      "sourceUrl": "https://www.pexels.com/photo/25884890/",
+      "downloadUrl": "https://images.pexels.com/photos/25884890/pexels-photo-25884890.jpeg?auto=compress&cs=tinysrgb&w=480&h=480&fit=crop&crop=faces",
       "license": "Pexels License",
       "width": 480,
       "height": 480,
-      "bytes": 40117,
-      "sha256": "a9d2d19f282cc9e5713c1beddcf83177ece7acb704110e0bd8aa2a97d5c845c4"
+      "bytes": 21535,
+      "sha256": "4b1196b4ac74a4f3c2126ca68285a9397b2c20a7ee2aec8c0e9200ea3186b0f6"
     },
     "linche_hero": {
       "path": "assets/personas/linche-hero.jpg",
       "alt": "林澈角色示意人像（Pexels 图库照片）",
-      "sourceUrl": "https://www.pexels.com/photo/18285580/",
-      "downloadUrl": "https://images.pexels.com/photos/18285580/pexels-photo-18285580.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop",
+      "sourceUrl": "https://www.pexels.com/photo/25884890/",
+      "downloadUrl": "https://images.pexels.com/photos/25884890/pexels-photo-25884890.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop&crop=faces",
       "license": "Pexels License",
       "width": 900,
       "height": 1200,
-      "bytes": 185118,
-      "sha256": "2acd43996000ebbd3ac21e9dff3b3937ed554986072f4c5058e384dc373ac34a"
+      "bytes": 83395,
+      "sha256": "38bc3d76b10a7e5c53c57355011462d78d3df328469611ce3b0a6bd60eafc449"
     },
     "jiangye_avatar": {
       "path": "assets/personas/jiangye-avatar.jpg",
       "alt": "江野角色示意人像（Pexels 图库照片）",
-      "sourceUrl": "https://www.pexels.com/photo/2379005/",
-      "downloadUrl": "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=480&h=480&fit=crop",
+      "sourceUrl": "https://www.pexels.com/photo/30109580/",
+      "downloadUrl": "https://images.pexels.com/photos/30109580/pexels-photo-30109580.jpeg?auto=compress&cs=tinysrgb&w=480&h=480&fit=crop&crop=faces",
       "license": "Pexels License",
       "width": 480,
       "height": 480,
-      "bytes": 40547,
-      "sha256": "cbe73caa3d9bd2dc3e6318600617148090648db6b6b484b9e43862d300ec05b4"
+      "bytes": 28128,
+      "sha256": "f992201ed06d7c8f62428129a50cfe492d0604d908be10ed3772e9a0b6e9db5c"
     },
     "jiangye_hero": {
       "path": "assets/personas/jiangye-hero.jpg",
       "alt": "江野角色示意人像（Pexels 图库照片）",
-      "sourceUrl": "https://www.pexels.com/photo/2379005/",
-      "downloadUrl": "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop",
+      "sourceUrl": "https://www.pexels.com/photo/30109580/",
+      "downloadUrl": "https://images.pexels.com/photos/30109580/pexels-photo-30109580.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop&crop=faces",
       "license": "Pexels License",
       "width": 900,
       "height": 1200,
-      "bytes": 195804,
-      "sha256": "253c13a55a85fa21d123def8c92b59124ba09492c8a028d812e87076c602c1d3"
+      "bytes": 91700,
+      "sha256": "4e2666a8c86993f89ceba8f969d489eb4257ca0d705e666d8f47ac172c07b11c"
     },
     "late_night": {
       "path": "assets/scenes/late_night.jpg",
