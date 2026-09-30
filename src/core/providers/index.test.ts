@@ -20,8 +20,24 @@ describe('demo persona voice and streaming', () => {
     expect(buildDemoReply(request)).not.toContain('抹茶');
     expect(compileSystemPrompt(request)).not.toContain('抹茶');
     request.memories[0].personaId = 'shenxu';
+    request.userMessage = '今天工作很累，突然想喝抹茶';
     expect(buildDemoReply(request)).toContain('我喜欢抹茶');
     expect(compileSystemPrompt(request)).toContain('不冒充真人');
+  });
+  it('answers a request to listen like a person instead of quoting a template', () => {
+    for (const persona of Object.values(personas)) {
+      const request = input(persona);
+      request.userMessage = '有些话想说，先听我说说好吗？';
+      request.reading = createEmotionEngine().analyze(request.userMessage, persona, []);
+      const reply = buildDemoReply(request);
+      expect(reply).not.toMatch(/你说「|不必整理|这一小段日常|认真听完/);
+      expect(reply.length).toBeLessThan(30);
+    }
+    expect(buildDemoReply({
+      ...input(personas.shenxu),
+      userMessage: '有些话想说，先听我说说好吗？',
+      reading: createEmotionEngine().analyze('有些话想说，先听我说说好吗？', personas.shenxu, [])
+    })).toBe('好。你说，我听着。');
   });
   it('streams multiple chunks and ends gracefully after cancellation', async () => {
     const abort = new AbortController();
