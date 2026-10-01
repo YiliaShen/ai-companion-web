@@ -93,7 +93,7 @@ export function App() {
       <div className="context-content"><section className="memory-preview"><div className="section-heading"><h3>共同记忆</h3><button type="button" className="text-button" onClick={() => navigate('memory')} aria-label="查看全部记忆">{memories.length}<ArrowRight size={16} /></button></div><MemoryConstellation memories={memories.slice(0, 5)} onSelect={chooseMemory} compact /><p className="context-note">{memories.length ? '那些你说过的小事，都在这里。' : `你告诉${persona.name}的偏好，会慢慢留在这里。`}</p></section>
         <section className="album-preview"><div className="section-heading"><h3>一起收藏的此刻</h3><button type="button" className="text-button" onClick={() => navigate('album')} aria-label="打开相册"><ArrowRight size={17} /></button></div>{photos.length ? <AlbumGrid photos={photos.slice(-2)} onOpen={(photo) => setPhotoId(photo.id)} onFavorite={favorite} compact /> : <button type="button" className="album-preview-empty" onClick={() => navigate('album')}><span>还没有照片</span><small>让风景在对话里自然发生</small><ArrowRight size={17} /></button>}</section>
         <AmbientPlayer enabled={state.settings.ambientAudio} onChange={(ambientAudio) => perform(() => controller.updateSettings({ ambientAudio }))} />
-        <p className="context-footer">陪伴有回声，相处有边界。<br />人物与场景为示意素材 · Pexels / Unsplash</p>
+        <p className="context-footer">陪伴有回声，相处有边界。<br />人物为 AI 生成示意，场景来自 Unsplash</p>
       </div>
     </aside>
     <Navigation view={view} onChange={navigate} mobile />

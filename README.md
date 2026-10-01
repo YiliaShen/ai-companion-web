@@ -44,7 +44,7 @@ node scripts/smoke-web.mjs --url https://<owner>.github.io/ai-companion-web/
 
 GitHub Pages serves static files. Keep navigation on the single app entry or use hash routing; a direct request to an ungenerated pathname has no SPA fallback. The PWA precaches local photos and their manifest after the first successful online load. Do not place provider credentials in `VITE_*` variables or build artifacts.
 
-The local photo library contains 11 JPEGs (about 1.44 MB): avatar and hero crops for three personas, plus five shared scenes (`late_night`, `seaside`, `cafe`, `city_walk`, `celebration`). See [CREDITS.md](public/assets/CREDITS.md) for the Pexels/Unsplash licenses, original URLs and stable filename contract, and [manifest.json](public/assets/manifest.json) for metadata. Read `personas[id].avatar` / `.hero`, `personas[id].scenes[scene]` or `scenes[scene].path`, and prepend `import.meta.env.BASE_URL` to these paths without a leading slash. The files are local and need no runtime third-party image request once used by the UI.
+The local photo library contains 11 JPEGs: six Seedream generated persona images and five Unsplash scene photos. See [CREDITS.md](public/assets/CREDITS.md) for the generation note, Unsplash license, and stable filename contract, and [manifest.json](public/assets/manifest.json) for metadata. Read `personas[id].avatar` / `.hero`, `personas[id].scenes[scene]` or `scenes[scene].path`, and prepend `import.meta.env.BASE_URL` to these paths without a leading slash. The files are local and need no runtime third-party image request once used by the UI.
 
 ## 产品与工程文档
 
