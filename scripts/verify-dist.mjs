@@ -46,11 +46,10 @@ export async function verifyAssets(root) {
   const manifest = JSON.parse(await readFile(resolve(root, 'assets/manifest.json'), 'utf8'));
   const credits = await readFile(resolve(root, 'assets/CREDITS.md'), 'utf8');
   assert.equal(manifest.version, 1, 'Unknown asset manifest version');
-  const allowedSource = /^(?:https:\/\/(?:www\.pexels\.com|images\.unsplash\.com)\/|generated:\/\/mira-cast\/)/;
-  const allowedImageCdn = new Set(['https://images.pexels.com', 'https://images.unsplash.com']);
-  assert.equal(manifest.license.url, 'https://www.pexels.com/license/');
+  const allowedSource = /^(?:https:\/\/images\.unsplash\.com\/|generated:\/\/mira-cast\/)/;
+  const allowedImageCdn = new Set(['https://images.unsplash.com']);
+  assert.equal(manifest.license.url, 'https://unsplash.com/license/');
   assert(manifest.license.generatedNote, 'Missing generated persona asset note');
-  assert.equal(manifest.license.additionalUrl, 'https://unsplash.com/license/');
   const assets = Object.values(manifest.assets);
   assert(assets.length >= 11, 'Expected six portrait crops and at least five scene photos');
   const paths = new Set(assets.map((asset) => asset.path));

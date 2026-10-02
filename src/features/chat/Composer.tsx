@@ -38,6 +38,5 @@ export function Composer({ name, sending, onSend, onStop }: { name: string; send
           : <button className="send-button" type="submit" disabled={!text.trim()} aria-label="发送消息"><ArrowUp size={23} weight="bold" /></button>}
       </div>
     </div>
-    <p className="composer-note">Mira 是 AI 陪伴，重要的事也记得和现实中信任的人聊聊。</p>
   </form>;
 }

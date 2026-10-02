@@ -8,10 +8,9 @@ import { Onboarding } from './Onboarding';
 afterEach(cleanup);
 
 describe('onboarding persona selection', () => {
-  it('opens the explicitly selected persona and discloses the AI identity', async () => {
+  it('opens the explicitly selected persona', async () => {
     const onSelect = vi.fn().mockResolvedValue(true);
     render(<Onboarding personas={personas} onSelect={onSelect} />);
-    expect(screen.getByText(/三位都是 AI 陪伴角色/)).toBeVisible();
     fireEvent.click(screen.getByRole('button', { name: /江野.*刚下课/ }));
     expect(screen.getByRole('button', { name: /江野.*刚下课/ })).toHaveAttribute('aria-pressed', 'true');
     fireEvent.click(screen.getByRole('button', { name: '和江野聊聊' }));

@@ -86,9 +86,14 @@ class DemoProvider implements ChatProvider {
   readonly id = 'demo' as const;
   async *stream(input: ProviderChatInput, signal: AbortSignal): AsyncIterable<ChatChunk> {
     const characters = [...buildDemoReply(input)];
-    for (let index = 0; index < characters.length && !signal.aborted; index += 6) {
-      await delay(12, signal);
-      if (!signal.aborted) yield { type: 'text-delta', delta: characters.slice(index, index + 6).join('') };
+    await delay(Math.min(1500, 620 + input.userMessage.length * 15), signal);
+    for (let index = 0; index < characters.length && !signal.aborted;) {
+      const width = /[。！？；\n]/.test(characters[index - 1] ?? '') ? 1 : 2;
+      const delta = characters.slice(index, index + width).join('');
+      const pause = /[。！？；\n]$/.test(delta) ? 210 : /[，、]$/.test(delta) ? 105 : 58;
+      await delay(pause, signal);
+      if (!signal.aborted) yield { type: 'text-delta', delta };
+      index += width;
     }
     yield { type: 'done' };
   }

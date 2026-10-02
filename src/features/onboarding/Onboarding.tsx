@@ -28,12 +28,10 @@ export function Onboarding({ personas, onSelect }: { personas: Record<PersonaId,
       </div>
       <button type="button" className="primary-button onboarding-start" onClick={() => void start()} disabled={busy}>{busy ? '正在打开你们的空间…' : `和${persona.name}聊聊`}<ArrowRight size={19} /></button>
       {error && <p className="inline-error" role="alert">这次没能进入，请再试一次。</p>}
-      <p className="onboarding-disclosure">三位都是 AI 陪伴角色。你可以随时切换，<br />每段对话与记忆彼此独立。Mira 不替代真实关系或专业帮助。</p>
     </section>
     <section className="onboarding-portrait" aria-label={`${persona.name}的介绍`}>
       <Media key={selected} src={personaPresentation[selected].hero} alt={`${persona.name}，虚构 AI 角色的示意人像`} portrait eager />
       <div className="portrait-copy"><span className="portrait-romanized">{personaPresentation[selected].romanized}</span><h2>{persona.name}<small>{persona.ageLabel} 岁的人设</small></h2><p>{personaPresentation[selected].note}</p><blockquote>“{persona.greeting}”</blockquote></div>
-      <span className="image-source">角色示意图 · 非真人身份</span>
     </section>
   </main>;
 }
