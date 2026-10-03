@@ -5,6 +5,7 @@ import type { AlbumPhoto, ChatMessage, Memory, PersonaId } from './contracts';
 import { personas } from './core/personas';
 import { createSafetyEngine } from './core/safety';
 import { useCompanion } from './state/CompanionProvider';
+import { selectMemoryEvidence, selectPersonaSession } from './state/personaSession';
 import { personaPresentation } from './app/presentation';
 import { PersonaOrbit, Navigation, type View } from './components/PersonaOrbit';
 import { Media } from './components/Media';
@@ -32,10 +33,8 @@ export function App() {
   const systemReducedMotion = useReducedMotion();
   const reducedMotion = state.settings.reducedMotion || Boolean(systemReducedMotion);
   const persona = personas[state.activePersonaId];
-  const conversation = [...state.conversations].filter((item) => item.personaId === persona.id).sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))[0];
-  const messages = useMemo(() => conversation ? state.messages[conversation.id] ?? [] : [], [conversation, state.messages]);
-  const memories = state.memories.filter((memory) => memory.personaId === persona.id);
-  const photos = state.album.filter((photo) => photo.personaId === persona.id);
+  const session = useMemo(() => selectPersonaSession(state, persona.id), [state, persona.id]);
+  const { messages, memories, photos } = session;
   const selectedMemory = memories.find((memory) => memory.id === memoryId);
   const safetyEngine = useMemo(() => createSafetyEngine(), []);
   const latestUser = [...messages].reverse().find((message) => message.role === 'user');
@@ -83,7 +82,7 @@ export function App() {
       {showPeople && <div id="mobile-personas" className="persona-switcher" role="group" aria-label="切换陪伴角色">{Object.values(personas).map((item) => <button type="button" key={item.id} disabled={isStreaming} aria-pressed={item.id === persona.id} onClick={() => void selectPersona(item.id)}><Media src={personaPresentation[item.id].avatar} alt={item.name} portrait /><span><strong>{item.name}</strong><small>{item.tagline}</small></span>{item.id === persona.id && <span className="current-indicator">当前</span>}</button>)}</div>}
       <SafetyBanner decision={dismissedSafetyKey === safetyKey && decision.level !== 'urgent' ? { ...decision, level: 'none' } : decision} dependencyReminder={reminderDue && state.settings.dependencyReminder && dismissedSafetyKey !== safetyKey} onDismiss={() => setDismissedSafetyKey(safetyKey)} />
       {error && view !== 'settings' && <div className="app-error" role="alert"><span>{error}</span><button className="text-button" type="button" onClick={() => navigate('settings')}>检查设置</button><button className="icon-button" type="button" aria-label="收起错误提示" onClick={dismissError}><X size={17} /></button></div>}
-      {view === 'chat' && <><MessageStream key={persona.id} persona={persona} messages={messages} sending={isStreaming} reducedMotion={reducedMotion} onRetry={(text) => void send(text)} onPhoto={openPhoto} /><Composer key={persona.id} name={persona.name} sending={isStreaming} onSend={send} onStop={stop} /></>}
+      {view === 'chat' && <><MessageStream key={`stream-${persona.id}`} persona={persona} messages={messages} sending={isStreaming} reducedMotion={reducedMotion} onRetry={(text) => void send(text)} onPhoto={openPhoto} /><Composer key={`composer-${persona.id}`} name={persona.name} sending={isStreaming} onSend={send} onStop={stop} /></>}
       {view === 'memory' && <MemoryView key={persona.id} memories={memories} name={persona.name} onSelect={chooseMemory} />}
       {view === 'album' && <AlbumView key={persona.id} photos={photos} name={persona.name} onOpen={(photo) => setPhotoId(photo.id)} onFavorite={favorite} onChat={() => navigate('chat')} />}
       {view === 'settings' && <SettingsView onReset={() => { setSessionEntered(false); setView('chat'); }} />}
@@ -96,7 +95,7 @@ export function App() {
       </div>
     </aside>
     <Navigation view={view} onChange={navigate} mobile />
-    {selectedMemory && <MemoryDetail key={selectedMemory.id} memory={selectedMemory} evidence={Object.values(state.messages).flat().filter((message) => message.memoryIds?.includes(selectedMemory.id))} onClose={() => setMemoryId(null)} onSave={(patch) => perform(() => controller.updateMemory(selectedMemory.id, patch))} onDelete={() => perform(() => controller.deleteMemory(selectedMemory.id))} />}
+    {selectedMemory && <MemoryDetail key={selectedMemory.id} memory={selectedMemory} evidence={selectMemoryEvidence(session, selectedMemory.id)} onClose={() => setMemoryId(null)} onSave={(patch) => perform(() => controller.updateMemory(selectedMemory.id, patch))} onDelete={() => perform(() => controller.deleteMemory(selectedMemory.id))} />}
     {photoId && <PhotoLightbox photos={photos} initialId={photoId} onClose={() => setPhotoId(null)} onFavorite={favorite} />}
     {messagePhoto && <PhotoLightbox photos={[messagePhoto]} initialId={messagePhoto.id} onClose={() => setMessagePhoto(null)} />}
   </div>;
